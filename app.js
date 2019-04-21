@@ -40,32 +40,43 @@ app.get('/light/true', (req, res) => {
     // db.collection('fishtank')
     //   .doc('sid')
     //   .update({
-    //     light: 'off'
+    //     light: 'on'
     //   })
   })
   res.send('success on')
 })
 app.get('/light/false', (req, res) => {
-  exec('python light.py', { stdio: 'inherit' }, (err, stdout, stderr) => {
+  exec('python lightoff.py', { stdio: 'inherit' }, (err, stdout, stderr) => {
     console.log(stdout)
+    // db.collection('fishtank')
+    //   .doc('sid')
+    //   .update({
+    //     light: 'on'
+    //   })
   })
   res.send('success off')
 })
 app.get('waterlevel', (req, res) => {
   exec('python ultrasonic.py', { stdio: 'inherit' }, (err, stdout, stderr) => {
     console.log(stdout)
+    const level = stdout.substring(10, 12)
+    // db.collection('fishtank')
+    //   .doc('sid')
+    //   .update({
+    //     waterlevel: ''
+    //   })
     res.send(stdout.substring(10, 12))
   })
 })
 
 app.get('/water1/true', (req, res) => {
-  exec('python lighton.py', { stdio: 'inherit' }, (err, stdout, stderr) => {
+  exec('python water1.py', { stdio: 'inherit' }, (err, stdout, stderr) => {
     console.log(stdout)
   })
   res.send('success on')
 })
 app.get('/water1/false', (req, res) => {
-  exec('python light.py', { stdio: 'inherit' }, (err, stdout, stderr) => {
+  exec('python water2.py', { stdio: 'inherit' }, (err, stdout, stderr) => {
     console.log(stdout)
   })
   res.send('success off')
